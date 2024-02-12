@@ -1,0 +1,117 @@
+//Html Code 
+<!-- pages/templates/your_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head content remains the same -->
+
+    <!-- Add CSS for the filter section and search bar -->
+    <style>
+        /* Filter Section Styles */
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        .filter-section select {
+            padding: 5px;
+            font-size: 16px;
+        }
+        .filter-section input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <!-- Header content remains the same -->
+</div>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <!-- Sidebar content remains the same -->
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <label for="category-select">Category:</label>
+        <select id="category-select">
+            <option value="">All</option>
+            <option value="category1">Category 1</option>
+            <option value="category2">Category 2</option>
+            <!-- Add more options as needed -->
+        </select>
+        <label for="search-input">Search:</label>
+        <input type="text" id="search-input" placeholder="Search...">
+    </div>
+
+    <!-- New Item Button and Item Table remain the same -->
+</div>
+
+<script>
+    // JavaScript content remains the same
+
+    // Function to filter items based on category
+    document.getElementById('category-select').addEventListener('change', function() {
+        var category = this.value;
+        var rows = document.getElementById('item-table').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var categoryCell = row.getElementsByTagName('td')[4]; // Assuming category is the fifth column
+            if (category === '' || categoryCell.textContent.trim() === category) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+
+    // Function to search items
+    document.getElementById('search-input').addEventListener('keyup', function() {
+        var searchValue = this.value.toLowerCase();
+        var rows = document.getElementById('item-table').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var cells = row.getElementsByTagName('td');
+            var found = false;
+            for (var j = 1; j < cells.length; j++) { // Start from 1 to skip checkbox column
+                if (cells[j].textContent.toLowerCase().indexOf(searchValue) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
+//Css
+/* Filter Section Styles */
+.filter-section {
+    margin-bottom: 20px;
+}
+.filter-section label {
+    margin-right: 10px;
+}
+.filter-section select,
+.filter-section input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* Search Bar Styles */
+#search-input {
+    width: 200px; /* Adjust the width as needed */
+}
