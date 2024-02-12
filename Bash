@@ -1,0 +1,22 @@
+//pip install djangorestframework
+
+my_project/
+│
+├── my_app/
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── views.py
+│   ├── urls.py
+│   └── ...
+│
+├── my_project/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── ...
+│
+└── manage.py
