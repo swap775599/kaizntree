@@ -1,0 +1,27 @@
+# tests.py
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+from .models import Item, Category
+from .serializers import ItemSerializer, CategorySerializer
+
+class ItemAPITests(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Test Category')
+        self.item = Item.objects.create(name='Test Item', description='Test Description', price=10.0, category=self.category)
+
+    def test_get_item_list(self):
+        url = reverse('item-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        items = Item.objects.all()
+        serializer = ItemSerializer(items, many=True)
+        self.assertEqual(response.data, serializer.data)
+
+    def test_get_item_detail(self):
+        url = reverse('item-detail', args=[self.item.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        serializer = ItemSerializer(self.item)
+        self.assertEqual(response.data, serializer.data)
+
