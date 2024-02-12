@@ -1,0 +1,31 @@
+API Documentation:
+Endpoints:
+Item List: GET /api/items/
+Item Detail: GET /api/items/<item_id>/
+Authentication:
+Authentication is required to access the API endpoints.
+Use Django's built-in authentication system. You can log in using the Django admin interface or by creating users programmatically.
+Consuming Endpoints:
+Item List:
+
+Description: Retrieve a list of items.
+Method: GET
+URL: /api/items/
+Headers: Include authentication token in the request headers.
+Response: Returns a JSON array containing details of all items.
+Item Detail:
+
+Description: Retrieve details of a specific item.
+Method: GET
+URL: /api/items/<item_id>/
+Headers: Include authentication token in the request headers.
+Response: Returns JSON object containing details of the specified item.
+Example Usage:
+Authentication:
+
+Obtain an authentication token by logging in to the Django admin interface or using Django's authentication APIs.
+Include the authentication token in the request headers for subsequent API requests.
+Retrieve Item List:
+curl -H "Authorization: Token <your_authentication_token>" http://localhost:8000/api/items/
+Retrieve Item Detail:
+curl -H "Authorization: Token <your_authentication_token>" http://localhost:8000/api/items/<item_id>/
