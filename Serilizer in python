@@ -1,0 +1,39 @@
+# serializers.py
+from rest_framework import serializers
+from .models import Item, Category
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id', 'name')
+
+class ItemSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    tags = serializers.SerializerMethodField()
+    stock_status = serializers.SerializerMethodField()
+    available_stock = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Item
+        fields = ('id', 'sku', 'name', 'category', 'tags', 'stock_status', 'available_stock')
+
+    def get_tags(self, obj):
+        return obj.tags.all().values_list('name', flat=True)
+
+    def get_stock_status(self, obj):
+        if obj.stock_quantity > 0:
+            return "In stock"
+        else:
+            return "Out of stock"
+
+    def get_available_stock(self, obj):
+        return obj.stock_quantity if obj.stock_quantity > 0 else 0
+
+# views.py
+from rest_framework import generics
+from .models import Item
+from .serializers import ItemSerializer
+
+class ItemListAPIView(generics.ListAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
