@@ -1,0 +1,10 @@
+CREATE TABLE items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tikbox BOOLEAN,
+    sku VARCHAR(255),
+    name VARCHAR(255),
+    tag VARCHAR(255),
+    category VARCHAR(255),
+    stocks INT,
+    available_stocks INT
+);
